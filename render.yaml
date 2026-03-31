@@ -15,19 +15,14 @@ services:
       - key: PORT
         value: 5000
       - key: DB_URL
-        # Bạn sẽ thay đổi URL MongoDB Atlas thực tế sau khi tạo Service
         sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: CLIENT_URL
-        # Sau khi deploy xong Frontend, bạn hãy dán URL của Frontend vào đây
         sync: false
       - key: CLIENT_URL_SHIP
         value: http://localhost:3001
 
-  # ============================================
-  # Custom Frontend (Docker)
-  # ============================================
   - type: web
     name: car-booking-custom
     env: docker
@@ -53,9 +48,6 @@ services:
       - key: VITE_API_URL
         sync: false
 
-  # ============================================
-  # Staff Frontend (Docker)
-  # ============================================
   - type: web
     name: car-booking-staff
     env: docker
