@@ -56,19 +56,17 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    console.log('👉 Yêu cầu từ Origin:', origin);
+    if (!origin || allowedOrigins.includes(origin) || (origin && origin.includes('onrender.com'))) {
       callback(null, true);
     } else {
-      // Cho phép subdomain của render.com trong production nếu cần
-      if (process.env.NODE_ENV === 'production' && origin.endsWith('.render.com')) {
-        return callback(null, true);
-      }
+      console.log('❌ Bị chặn bởi CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 };
 
 app.use(cors(corsOptions));
