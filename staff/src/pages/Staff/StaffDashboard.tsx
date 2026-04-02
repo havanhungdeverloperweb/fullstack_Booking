@@ -213,10 +213,9 @@ export default function StaffDashboard() {
     return null;
   }
 
-  // Menu items for mobile
   const menuItems = [
     { id: 'bookings', label: 'Đơn Hàng', icon: Calendar },
-    { id: 'payments', label: 'Thanh Toán', icon: BarChart3 }, // Dùng tạm icon phụ trên mobile
+    { id: 'payments', label: 'Thanh Toán', icon: BarChart3 },
     { id: 'drivers', label: 'Tài Xế', icon: Users },
     { id: 'vehicles', label: 'Xe', icon: Car },
     { id: 'customers', label: 'Khách Hàng', icon: User },
@@ -225,19 +224,11 @@ export default function StaffDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      {/* Mobile Header */}
       <div className="md:hidden bg-linear-to-br from-blue-900 to-emerald-900 text-white p-4 flex justify-between items-center sticky top-0 z-50">
         <h2 className="text-xl font-bold flex items-center gap-2">
           <span className="text-emerald-500">Staff</span> Panel
         </h2>
         <div className="flex items-center gap-2">
-          <button
-            onClick={handleLogout}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-            title="Đăng xuất"
-          >
-            <LogOut size={20} />
-          </button>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -246,8 +237,6 @@ export default function StaffDashboard() {
           </button>
         </div>
       </div>
-
-      {/* Sidebar */}
       <Sidebar
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -257,7 +246,6 @@ export default function StaffDashboard() {
         onLogout={handleLogout}
       />
 
-      {/* Main Content */}
       <main className="flex-1 p-4 md:p-8 overflow-x-auto">
         <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 capitalize">
@@ -276,7 +264,6 @@ export default function StaffDashboard() {
           </div>
         </header>
 
-        {/* Mobile Menu - Show when sidebar is closed on mobile */}
         {!isSidebarOpen && (
           <div className="md:hidden mb-6">
             <div className="flex flex-wrap gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-100">
@@ -304,7 +291,6 @@ export default function StaffDashboard() {
           </div>
         )}
 
-        {/* Tabs Content */}
         {activeTab === 'bookings' && (
           <BookingsTab
             onViewBooking={setViewingBooking}
@@ -336,7 +322,6 @@ export default function StaffDashboard() {
         )}
       </main>
 
-      {/* Modals */}
       {viewingBooking && (
         <ViewBookingModal
           booking={viewingBooking}

@@ -64,7 +64,7 @@ class TripApi {
 
       return data;
     } catch (error) {
-      console.error('API Error:', error);
+      // Failed silently
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Không thể kết nối đến server',

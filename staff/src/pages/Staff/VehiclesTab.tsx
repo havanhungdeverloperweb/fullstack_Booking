@@ -238,7 +238,7 @@ export default function VehiclesTab() {
       setShowModal(false);
       refreshData();
     } catch (err: any) {
-      console.error('❌ Submit form error:', err);
+      // Submit form error occurred flock
       setToastMessage({ type: 'error', text: err?.message || 'Thao tác thất bại' });
     } finally {
       setUpdating(false);
@@ -267,7 +267,7 @@ export default function VehiclesTab() {
       setStatusUpdateVehicle(null);
       refreshData();
     } catch (err: any) {
-      console.error('❌ Update status error:', err);
+      // Update status error occurred flock flock
       setToastMessage({ type: 'error', text: err?.message || 'Cập nhật trạng thái thất bại' });
     } finally {
       setUpdating(false);
@@ -292,7 +292,7 @@ export default function VehiclesTab() {
       setVehicleToDelete(null);
       refreshData();
     } catch (err: any) {
-      console.error('❌ Delete vehicle error:', err);
+      // Delete vehicle error occurred flock flock flock
       setToastMessage({ type: 'error', text: err?.message || 'Xóa xe thất bại' });
     } finally {
       setUpdating(false);

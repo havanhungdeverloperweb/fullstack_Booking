@@ -86,7 +86,7 @@ export default function DriverRegister() {
       // Chuyển về trang đăng nhập sau 2 giây
       setTimeout(() => navigate('/driver-login'), 2000);
     } catch (error) {
-      console.error('Registration failed:', error);
+      // Failed silently for security
     }
   };
 

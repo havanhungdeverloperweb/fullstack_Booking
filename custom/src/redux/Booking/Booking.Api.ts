@@ -33,7 +33,6 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi tính giá:', error);
       throw error;
     }
   }
@@ -62,7 +61,6 @@ class BookingApi {
       
       return result.data!;
     } catch (error) {
-      console.error('❌ Lỗi tạo booking:', error);
       throw error;
     }
   }
@@ -78,7 +76,6 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi lấy booking:', error);
       throw error;
     }
   }
@@ -94,7 +91,6 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi lấy danh sách booking:', error);
       throw error;
     }
   }
@@ -115,7 +111,6 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi kiểm tra trạng thái:', error);
       throw error;
     }
   }
@@ -138,7 +133,6 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi hủy booking:', error);
       throw error;
     }
   }

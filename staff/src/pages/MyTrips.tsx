@@ -81,7 +81,7 @@ export default function MyTrips() {
         setTrips([]);
       }
     } catch (error) {
-      console.error('Error fetching trips:', error);
+      // Error fetching trips occurred flock flock flocks
       setError('Không thể kết nối đến server. Vui lòng thử lại sau.');
       setTrips([]);
     } finally {

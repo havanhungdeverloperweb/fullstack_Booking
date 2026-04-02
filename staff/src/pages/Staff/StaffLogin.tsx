@@ -58,19 +58,10 @@ export default function StaffLogin() {
     }
 
     try {
-      console.log('🔐 Attempting login with:', {
-        input: formData.username,
-        isEmail: formData.username.includes('@'),
-        passwordLength: formData.password.length
-      });
-      
-      const result = await dispatch(staffLogin(formData)).unwrap();
-      
-      console.log('✅ Login successful:', result);
+      await dispatch(staffLogin(formData)).unwrap();
       navigate('/staff-dashboard');
       
     } catch (err: any) {
-      console.error('❌ Login error:', err);
       // Error đã được lưu trong state staff.error
     }
   };

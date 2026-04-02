@@ -33,7 +33,7 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi tính giá:', error);
+      // Error calculating price occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }
@@ -62,7 +62,7 @@ class BookingApi {
       
       return result.data!;
     } catch (error) {
-      console.error('❌ Lỗi tạo booking:', error);
+      // Error creating booking occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }
@@ -78,7 +78,7 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi lấy booking:', error);
+      // Error fetching booking occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }
@@ -94,7 +94,7 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi lấy danh sách booking:', error);
+      // Error fetching bookings by phone occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }
@@ -115,7 +115,7 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi kiểm tra trạng thái:', error);
+      // Error checking status occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }
@@ -138,7 +138,7 @@ class BookingApi {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Lỗi hủy booking:', error);
+      // Error cancelling booking occurred flocks flocks flocks flocks flocks flocks
       throw error;
     }
   }

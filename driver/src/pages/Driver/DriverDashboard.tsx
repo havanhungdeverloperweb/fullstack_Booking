@@ -48,7 +48,7 @@ export default function DriverDashboard() {
       setStats(statsData);
       setAllTrips(tripsData);
     } catch (error) {
-      console.error('Error fetching driver data:', error);
+      // Handle silently
     } finally {
       setLoading(false);
     }
@@ -61,14 +61,12 @@ export default function DriverDashboard() {
     try {
       const statusData = await driverTripApi.getDriverStatus();
       if (statusData && currentDriver && statusData.status !== currentDriver.status) {
-        console.log(`🔄 Status changed: ${currentDriver.status} → ${statusData.status}`);
         dispatch(updateDriverInfo({ ...currentDriver, status: statusData.status }));
         setOnlineStatus(statusData.status);
       } else if (statusData && !currentDriver) {
         setOnlineStatus(statusData.status);
       }
     } catch (error) {
-      console.error('Error fetching driver status:', error);
       // Check if error is 401 unauthorized
       const err = error as any;
       if (err?.response?.status === 401) {
@@ -88,7 +86,6 @@ export default function DriverDashboard() {
       setShowLogoutConfirm(false);
       navigate('/driver-login', { replace: true });
     } catch (error) {
-      console.error('Logout error:', error);
       localStorage.removeItem('driverToken');
       localStorage.removeItem('driverInfo');
       dispatch(resetState());
@@ -106,7 +103,6 @@ export default function DriverDashboard() {
       const driverFromStorage = localStorage.getItem('driverInfo');
       
       if (!tokenFromStorage || !driverFromStorage) {
-        console.log('⛔ No auth found, redirecting to login');
         navigate('/driver-login', { replace: true });
       } else if (!currentDriver && driverFromStorage) {
         const parsedDriver = JSON.parse(driverFromStorage);
@@ -156,13 +152,11 @@ export default function DriverDashboard() {
     
     // Setup interval
     pollingIntervalRef.current = setInterval(fetchDriverStatus, 10000);
-    console.log('✅ Status polling started (10s interval)');
     
     return () => {
       if (pollingIntervalRef.current) {
         clearInterval(pollingIntervalRef.current);
         pollingIntervalRef.current = null;
-        console.log('🧹 Status polling cleaned up');
       }
     };
   }, [currentDriver, token, fetchDriverStatus]);
@@ -179,7 +173,6 @@ export default function DriverDashboard() {
       // Show success message
       alert('Xác nhận nhận chuyến thành công!');
     } catch (error: any) {
-      console.error('Error confirming trip:', error);
       alert(error?.message || 'Xác nhận chuyến thất bại');
     }
   };
@@ -194,7 +187,6 @@ export default function DriverDashboard() {
       
       alert('Hoàn thành chuyến đi thành công!');
     } catch (error: any) {
-      console.error('Error completing trip:', error);
       alert(error?.message || 'Hoàn thành chuyến thất bại');
     }
   };

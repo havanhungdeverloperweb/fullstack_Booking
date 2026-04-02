@@ -223,7 +223,7 @@ export default function DriverCreateTrip() {
       alert('Tạo chuyến thành công!');
       navigate('/driver-dashboard');
     } catch (e) {
-      console.error(e);
+      // Failed silently
     }
   };
 

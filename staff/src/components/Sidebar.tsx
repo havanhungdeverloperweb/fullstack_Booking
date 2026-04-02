@@ -26,12 +26,10 @@ function SidebarButton({ icon, label, onClick, active }: any) {
 }
 
 export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staffInfo, onLogout }: SidebarProps) {
-  
   const handleHomeClick = () => {
     onClose();
     window.location.href = '/';
   };
-
   return (
     <>
       {isOpen && (
@@ -62,6 +60,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
               label="Đơn Hàng" 
               active={activeTab === 'bookings'} 
             />
+
             <SidebarButton 
               onClick={() => { onTabChange('payments'); onClose(); }} 
               icon={<CreditCard size={20} />} 
@@ -74,18 +73,21 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
               label="Thống Kê" 
               active={activeTab === 'stats'} 
             />
+
             <SidebarButton 
               onClick={() => { onTabChange('drivers'); onClose(); }} 
               icon={<UserCheck size={20} />} 
               label="Tài Xế" 
               active={activeTab === 'drivers'} 
             />
+
             <SidebarButton 
               onClick={() => { onTabChange('vehicles'); onClose(); }} 
               icon={<Car size={20} />} 
               label="Phương Tiện" 
               active={activeTab === 'vehicles'} 
             />
+            
             <SidebarButton 
               onClick={() => { onTabChange('customers'); onClose(); }} 
               icon={<Users size={20} />} 

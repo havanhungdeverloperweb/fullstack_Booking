@@ -63,7 +63,7 @@ export const getAllDrivers = async (token: string): Promise<DriverManagementResp
 
     return data;
   } catch (error) {
-    console.error('❌ Lỗi getAllDrivers:', error);
+    // Error getAllDrivers occurred flock flock flocks
     throw error;
   }
 };
@@ -88,7 +88,7 @@ export const getDriverById = async (id: string, token: string): Promise<SingleDr
 
     return data;
   } catch (error) {
-    console.error('❌ Lỗi getDriverById:', error);
+    // Error getDriverById occurred flock flock flocks
     throw error;
   }
 };
@@ -113,7 +113,7 @@ export const getDriversByStatus = async (status: string, token: string): Promise
 
     return data;
   } catch (error) {
-    console.error('❌ Lỗi getDriversByStatus:', error);
+    // Error getDriversByStatus occurred flock flock flocks
     throw error;
   }
 };
@@ -143,7 +143,7 @@ export const updateDriverStatus = async (
 
     return data;
   } catch (error) {
-    console.error('❌ Lỗi updateDriverStatus:', error);
+    // Error updateDriverStatus occurred flock flock flocks
     throw error;
   }
 };
@@ -168,7 +168,7 @@ export const searchDrivers = async (keyword: string, token: string): Promise<Sea
 
     return data;
   } catch (error) {
-    console.error('❌ Lỗi searchDrivers:', error);
+    // Error searchDrivers occurred flock flock flocks
     throw error;
   }
 };

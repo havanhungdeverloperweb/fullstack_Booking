@@ -21,22 +21,12 @@ const loadState = (): DriverState => {
     const token = localStorage.getItem('driverToken');
     const driverInfo = localStorage.getItem('driverInfo');
     
-    console.log('📦 Loading driver state from localStorage:', { 
-      hasToken: !!token, 
-      hasDriverInfo: !!driverInfo,
-    });
-    
     let currentDriver = null;
     if (driverInfo) {
       try {
         currentDriver = JSON.parse(driverInfo);
-        console.log('📦 Loaded driver info:', { 
-          id: currentDriver._id, 
-          name: currentDriver.name,
-          status: currentDriver.status 
-        });
       } catch (e) {
-        console.error('Error parsing driver info:', e);
+        // Ignored
       }
     }
     
@@ -49,7 +39,6 @@ const loadState = (): DriverState => {
       message: null,
     };
   } catch (error) {
-    console.error('Error loading driver state:', error);
     return {
       currentDriver: null,
       token: null,
@@ -82,8 +71,6 @@ export const driverLogin = createAsyncThunk(
   async (payload: DriverLoginPayload, { rejectWithValue }) => {
     try {
       const response = await driverApi.login(payload);
-      console.log('✅ Login response received, token:', response.token ? 'Yes' : 'No');
-      console.log('✅ Driver status from login:', response.status);
       
       // Lưu token và driver info vào localStorage
       localStorage.setItem('driverToken', response.token);
@@ -111,7 +98,6 @@ export const driverLogout = createAsyncThunk(
     try {
       await driverApi.logout();
     } catch (error: any) {
-      console.warn('Logout API error:', error.message);
     }
     // Always clear local storage
     localStorage.removeItem('driverToken');
@@ -128,7 +114,6 @@ export const fetchCurrentDriver = createAsyncThunk(
       const response = await driverApi.getCurrentDriver();
       // Cập nhật localStorage
       localStorage.setItem('driverInfo', JSON.stringify(response));
-      console.log('✅ Current driver fetched, status:', response.status);
       return response;
     } catch (error: any) {
       // Nếu lỗi 401 (unauthorized), xóa localStorage
@@ -210,19 +195,11 @@ const driverSlice = createSlice({
       state.message = null;
       localStorage.removeItem('driverToken');
       localStorage.removeItem('driverInfo');
-      console.log('🔄 Driver state reset');
     },
     // Cập nhật thông tin tài xế (dùng cho polling hoặc WebSocket)
     updateDriverInfo: (state, action: PayloadAction<Driver>) => {
       const oldStatus = state.currentDriver?.status;
       const newStatus = action.payload.status;
-      
-      console.log('🔄 updateDriverInfo called:', {
-        oldStatus,
-        newStatus,
-        hasCurrentDriver: !!state.currentDriver,
-        timestamp: new Date().toISOString()
-      });
       
       if (state.currentDriver) {
         // Cập nhật từng field
@@ -236,7 +213,6 @@ const driverSlice = createSlice({
       
       // Lưu vào localStorage
       localStorage.setItem('driverInfo', JSON.stringify(state.currentDriver));
-      console.log('💾 Driver info saved to localStorage, status:', state.currentDriver.status);
       
       // Trigger event để các component khác có thể lắng nghe
       if (typeof window !== 'undefined') {
@@ -251,7 +227,6 @@ const driverSlice = createSlice({
         const oldStatus = state.currentDriver.status;
         const newStatus = action.payload;
         
-        console.log(`🔄 Updating driver status: ${oldStatus} → ${newStatus}`);
         state.currentDriver.status = newStatus;
         
         // Cập nhật localStorage
@@ -269,7 +244,6 @@ const driverSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
       localStorage.setItem('driverToken', action.payload);
-      console.log('🔑 Token saved to localStorage');
     }
   },
   extraReducers: (builder) => {
@@ -311,7 +285,6 @@ const driverSlice = createSlice({
         state.token = action.payload.token;
         state.success = true;
         state.message = 'Đăng nhập thành công';
-        console.log('✅ Driver logged in, status:', state.currentDriver.status);
       })
       .addCase(driverLogin.rejected, (state, action) => {
         state.loading = false;
@@ -329,13 +302,11 @@ const driverSlice = createSlice({
         state.token = null;
         state.success = true;
         state.message = 'Đăng xuất thành công';
-        console.log('✅ Driver logged out');
       })
       .addCase(driverLogout.rejected, (state) => {
         state.loading = false;
         state.currentDriver = null;
         state.token = null;
-        console.log('⚠️ Driver logout with errors, state cleared anyway');
       })
 
       // Lấy thông tin hiện tại
@@ -347,14 +318,12 @@ const driverSlice = createSlice({
         state.loading = false;
         state.currentDriver = action.payload;
         state.success = true;
-        console.log('✅ Current driver fetched, status:', state.currentDriver?.status);
       })
       .addCase(fetchCurrentDriver.rejected, (state, action) => {
         state.loading = false;
         state.currentDriver = null;
         state.token = null;
         state.error = action.payload as string || 'Phiên đăng nhập hết hạn';
-        console.log('❌ Failed to fetch current driver:', state.error);
       })
 
       // Lấy thông tin tài xế theo ID (polling)
@@ -367,10 +336,6 @@ const driverSlice = createSlice({
           const oldStatus = state.currentDriver.status;
           const newStatus = action.payload.status;
           
-          if (oldStatus !== newStatus) {
-            console.log(`🔄 [fetchDriverById] Driver status changed: ${oldStatus} → ${newStatus}`);
-          }
-          
           state.currentDriver = {
             ...state.currentDriver,
             ...action.payload
@@ -380,7 +345,6 @@ const driverSlice = createSlice({
         }
       })
       .addCase(fetchDriverById.rejected, (state, action) => {
-        console.error('❌ Failed to fetch driver info:', action.payload);
       })
       
       // Lấy status chỉ (polling nhanh)
@@ -390,7 +354,6 @@ const driverSlice = createSlice({
           const newStatus = action.payload.status;
           
           if (oldStatus !== newStatus) {
-            console.log(`🔄 [fetchDriverStatus] Status changed: ${oldStatus} → ${newStatus}`);
             state.currentDriver.status = newStatus;
             state.currentDriver.updated_at = action.payload.updated_at;
             localStorage.setItem('driverInfo', JSON.stringify(state.currentDriver));
@@ -398,7 +361,6 @@ const driverSlice = createSlice({
         }
       })
       .addCase(fetchDriverStatus.rejected, (state, action) => {
-        console.error('❌ Failed to fetch driver status:', action.payload);
       });
   },
 });

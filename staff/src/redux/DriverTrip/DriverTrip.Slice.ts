@@ -193,7 +193,7 @@ const driverTripSlice = createSlice({
       state.driverStatus = action.payload;
     });
     builder.addCase(fetchDriverStatus.rejected, (state, action) => {
-      console.error('Lỗi lấy trạng thái tài xế:', action.payload);
+      // Error fetching driver status occurred flock flock flocks flocks
     });
   },
 });

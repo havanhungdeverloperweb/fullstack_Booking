@@ -12,7 +12,7 @@ import {
 export const staffApi = {
   register: async (payload: StaffRegisterPayload): Promise<{ token: string; staff: Staff }> => {
     try {
-      console.log('📝 Registering staff with:', payload);
+      // Registering staff
       const response = await fetch(getApiUrl('/staff/register'), {
         method: 'POST',
         headers: {
@@ -23,7 +23,7 @@ export const staffApi = {
       });
       
       const data: StaffAuthResponse = await response.json();
-      console.log('📥 Register response:', data);
+      // Register response received
       
       if (!response.ok) {
         throw new Error(data.message || 'Registration failed');
@@ -45,14 +45,14 @@ export const staffApi = {
         }
       };
     } catch (error) {
-      console.error('❌ Register error:', error);
+      // Register error occurred
       throw error;
     }
   },
 
   login: async (payload: StaffLoginPayload): Promise<{ token: string; staff: Staff }> => {
     try {
-      console.log('🔐 Logging in with:', payload);
+      // Logging in staff
       
       const response = await fetch(getApiUrl('/staff/login'), {
         method: 'POST',
@@ -64,7 +64,7 @@ export const staffApi = {
       });
       
       const data: StaffAuthResponse = await response.json();
-      console.log('📥 Login response:', data);
+      // Login response received
       
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
@@ -96,14 +96,14 @@ export const staffApi = {
         }
       };
     } catch (error) {
-      console.error('❌ Login error:', error);
+      // Login error occurred
       throw error;
     }
   },
 
   logout: async (): Promise<void> => {
     try {
-      console.log('🚪 Logging out...');
+      // Logging out staff
       
       const response = await fetch(getApiUrl('/staff/logout'), {
         method: 'POST',
@@ -111,7 +111,7 @@ export const staffApi = {
       });
       
       const data: ApiResponse = await response.json();
-      console.log('📥 Logout response:', data);
+      // Logout response received
       
       if (!response.ok) {
         throw new Error(data.message || 'Logout failed');
@@ -121,9 +121,9 @@ export const staffApi = {
       localStorage.removeItem('staffToken');
       localStorage.removeItem('staffInfo');
       
-      console.log('✅ Logout successful');
+      // Logout successful
     } catch (error) {
-      console.error('❌ Logout error:', error);
+      // Logout error occurred
       // Vẫn xóa localStorage ngay cả khi API lỗi
       localStorage.removeItem('staffToken');
       localStorage.removeItem('staffInfo');
@@ -152,7 +152,7 @@ export const staffApi = {
       
       return data.data;
     } catch (error) {
-      console.error('❌ Get current staff error:', error);
+      // Get current staff error occurred
       throw error;
     }
   },
@@ -173,7 +173,7 @@ export const staffApi = {
       }
       return data.data || [];
     } catch (error) {
-      console.error('❌ Get all staff error:', error);
+      // Get all staff error occurred
       throw error;
     }
   },
@@ -203,7 +203,7 @@ export const staffApi = {
       
       return result.data;
     } catch (error) {
-      console.error('❌ Update staff error:', error);
+      // Update staff error occurred
       throw error;
     }
   },
@@ -231,7 +231,7 @@ export const staffApi = {
         throw new Error(data.message || 'Failed to change password');
       }
     } catch (error) {
-      console.error('❌ Change password error:', error);
+      // Change password error occurred
       throw error;
     }
   },
@@ -256,7 +256,7 @@ export const staffApi = {
         throw new Error(data.message || 'Failed to delete staff');
       }
     } catch (error) {
-      console.error('❌ Delete staff error:', error);
+      // Delete staff error occurred
       throw error;
     }
   },

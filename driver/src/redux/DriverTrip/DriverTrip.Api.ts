@@ -56,11 +56,8 @@ export const getDriverTrips = async (driverId: string): Promise<DriverTrip[]> =>
     // Response từ server: { success: true, data: [...trips], message: '...' }
     // Nên lấy response.data.data thay vì response.data
     const trips = response.data.data || [];
-    
-    console.log(`✅ Fetched ${trips.length} trips for driver ${driverId}`);
     return trips;
   } catch (error: any) {
-    console.error('❌ Lỗi lấy danh sách chuyến:', error);
     throw error.response?.data || { error: error.message };
   }
 };
@@ -81,11 +78,8 @@ export const getDriverTripStats = async (driverId: string): Promise<DriverTripSt
       earnings: 0,
       rating: 0
     };
-    
-    console.log(`✅ Fetched stats for driver ${driverId}:`, stats);
     return stats;
   } catch (error: any) {
-    console.error('❌ Lỗi lấy thống kê:', error);
     throw error.response?.data || { error: error.message };
   }
 };
@@ -103,11 +97,8 @@ export const confirmTrip = async (payload: ConfirmTripPayload): Promise<ConfirmT
     
     // ✅ Response format: { success: true, data: {...}, message: '...' }
     const result = response.data.data!;
-    
-    console.log(`✅ Confirmed trip:`, result);
     return result;
   } catch (error: any) {
-    console.error('❌ Lỗi xác nhận chuyến:', error);
     throw error.response?.data || { error: error.message };
   }
 };
@@ -124,11 +115,8 @@ export const completeTrip = async (bookingId: string): Promise<CompleteTripRespo
     
     // ✅ Response format: { success: true, data: {...}, message: '...' }
     const result = response.data.data!;
-    
-    console.log(`✅ Completed trip:`, result);
     return result;
   } catch (error: any) {
-    console.error('❌ Lỗi hoàn thành chuyến:', error);
     throw error.response?.data || { error: error.message };
   }
 };
@@ -149,7 +137,6 @@ export const getDriverStatus = async (): Promise<DriverStatusResponse> => {
     
     return statusData;
   } catch (error: any) {
-    console.error('❌ Lỗi lấy trạng thái tài xế:', error);
     throw error.response?.data || { error: error.message };
   }
 };

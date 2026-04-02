@@ -190,7 +190,7 @@ export const updateVehicle = createAsyncThunk(
   'vehicle/update',
   async ({ id, payload }: { id: string; payload: VehicleUpdatePayload }, { getState, rejectWithValue }) => {
     try {
-      console.log('📝 updateVehicle called with ID:', id, 'type:', typeof id);
+      // updateVehicle called
       
       if (!isValidId(id)) {
         throw new Error(`ID xe không hợp lệ: ${id}`);
@@ -254,10 +254,10 @@ export const deleteVehicle = createAsyncThunk(
       }
       
       const response = await vehicleApi.deleteVehicle(id, token);
-      console.log('✅ Delete successful, response:', response);
+      // Delete successful
       return response;
     } catch (error: any) {
-      console.error('❌ deleteVehicle error:', error.message);
+      // deleteVehicle error occurred
       return rejectWithValue(error.message || 'Xóa xe thất bại');
     }
   }
@@ -331,7 +331,7 @@ const vehicleSlice = createSlice({
       .addCase(fetchAllVehicles.fulfilled, (state, action) => {
         state.loading = false;
         state.vehicles = action.payload;
-        console.log('✅ Vehicles loaded in state:', state.vehicles.length);
+        // Vehicles loaded in state
       })
       .addCase(fetchAllVehicles.rejected, (state, action) => {
         state.loading = false;
@@ -472,7 +472,7 @@ const vehicleSlice = createSlice({
         state.success = true;
         state.message = 'Xóa xe thành công';
         
-        console.log('🗑️ Deleting vehicle with _id:', action.payload._id);
+        // Deleting vehicle from state
         state.vehicles = state.vehicles.filter(v => v._id !== action.payload._id);
         
         if (state.currentVehicle?._id === action.payload._id) {

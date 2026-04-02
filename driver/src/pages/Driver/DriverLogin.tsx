@@ -40,7 +40,7 @@ export default function DriverLogin() {
       })).unwrap();
       navigate('/driver-dashboard', { replace: true });
     } catch (error: any) {
-      console.error('Login error:', error);
+      // Failed silently for security
     }
   };
 

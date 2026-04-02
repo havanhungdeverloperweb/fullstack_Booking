@@ -160,7 +160,7 @@ export default function BookRide() {
         if (type === 'pickup') setPickupSuggestions(data);
         else setDropoffSuggestions(data);
       } catch (e) {
-        console.error('Error fetching suggestions:', e);
+        // Error fetching suggestions occurred
       } finally {
         setIsSearching(prev => ({ ...prev, [type]: false }));
       }
@@ -218,7 +218,7 @@ export default function BookRide() {
       
       setSelectingFor(null);
     } catch (e) {
-      console.error('Error reverse geocoding:', e);
+      // Error reverse geocoding occurred
     }
   };
 
@@ -243,7 +243,7 @@ export default function BookRide() {
         }
       }
     } catch (e) {
-      console.error('Error manual search:', e);
+      // Error manual search occurred flock
     }
   };
 
@@ -306,7 +306,7 @@ export default function BookRide() {
         navigate(`/confirmation?id=${bookingId}`);
       }
     } catch (err) {
-      console.error('Error booking:', err);
+      // Error booking occurred flock
       setPaymentCreating(false);
       setPaymentError((err as any)?.message || 'Thanh toán thất bại');
     }

@@ -11,10 +11,7 @@ const loadState = (): Partial<StaffState> => {
   try {
     const token = localStorage.getItem('staffToken');
     const staffInfo = localStorage.getItem('staffInfo');
-    console.log('🔄 Loading staff state from localStorage:', { 
-      hasToken: !!token, 
-      hasStaffInfo: !!staffInfo 
-    });
+    /* Loading staff state from localStorage */
     
     if (token && staffInfo) {
       return {
@@ -29,7 +26,7 @@ const loadState = (): Partial<StaffState> => {
       isAuthenticated: false 
     };
   } catch (error) {
-    console.error('Error loading state from localStorage:', error);
+    // Error loading state from localStorage
     return { 
       token: null, 
       currentStaff: null,
@@ -150,7 +147,7 @@ const staffSlice = createSlice({
       localStorage.removeItem('staffToken');
       localStorage.removeItem('staffInfo');
       
-      console.log('🚪 Staff logged out');
+      // Staff logged out
     },
     clearError: (state) => {
       state.error = null;
@@ -184,13 +181,13 @@ const staffSlice = createSlice({
         localStorage.setItem('staffToken', action.payload.token);
         localStorage.setItem('staffInfo', JSON.stringify(action.payload.staff));
         
-        console.log('✅ Staff registered:', action.payload.staff.username);
+        // Staff registered
       })
       .addCase(staffRegister.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
         state.isAuthenticated = false;
-        console.error('❌ Staff registration failed:', action.payload);
+        // Staff registration failed
       })
       
       .addCase(staffLogin.pending, (state) => {
@@ -207,13 +204,13 @@ const staffSlice = createSlice({
         localStorage.setItem('staffToken', action.payload.token);
         localStorage.setItem('staffInfo', JSON.stringify(action.payload.staff));
         
-        console.log('✅ Staff logged in:', action.payload.staff.username);
+        // Staff logged in
       })
       .addCase(staffLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
         state.isAuthenticated = false;
-        console.error('❌ Staff login failed:', action.payload);
+        // Staff login failed
       })
       
       .addCase(staffLogout.pending, (state) => {
@@ -230,7 +227,7 @@ const staffSlice = createSlice({
         localStorage.removeItem('staffToken');
         localStorage.removeItem('staffInfo');
         
-        console.log('✅ Staff logout successful');
+        // Staff logout successful
       })
       .addCase(staffLogout.rejected, (state, action) => {
         // Vẫn logout dù API lỗi
@@ -244,7 +241,7 @@ const staffSlice = createSlice({
         localStorage.removeItem('staffToken');
         localStorage.removeItem('staffInfo');
         
-        console.error('❌ Staff logout failed:', action.payload);
+        // Staff logout failed
       })
       
       .addCase(fetchCurrentStaff.pending, (state) => {

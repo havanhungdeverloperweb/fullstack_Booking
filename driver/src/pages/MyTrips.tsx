@@ -65,8 +65,6 @@ export default function MyTrips() {
       const response = await fetch(`http://localhost:5000/api/bookings/phone/${phone}`);
       const result = await response.json();
       
-      console.log('API Response:', result); // Debug log
-      
       if (result.success) {
         setTrips(result.data || []);
         if (result.data.length === 0) {
@@ -84,7 +82,6 @@ export default function MyTrips() {
         setTrips([]);
       }
     } catch (error) {
-      console.error('Error fetching trips:', error);
       setError('Không thể kết nối đến server. Vui lòng thử lại sau.');
       setTrips([]);
     } finally {

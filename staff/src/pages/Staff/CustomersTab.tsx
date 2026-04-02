@@ -1,4 +1,3 @@
-// components/CustomersTab.tsx
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { 
