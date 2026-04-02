@@ -54,6 +54,8 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
           </div>
           
           <nav className="space-y-2 flex-1">
+          
+
             <SidebarButton 
               onClick={() => { onTabChange('bookings'); onClose(); }} 
               icon={<Calendar size={20} />} 
@@ -94,6 +96,15 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
               label="Khách Hàng" 
               active={activeTab === 'customers'} 
             />
+            
+            <div className="md:hidden">
+              <SidebarButton
+                onClick={handleHomeClick}
+                icon={<Home size={20} />}
+                label="Trang Chủ"
+                active={false}
+              />
+            </div>
           </nav>
 
           {staffInfo && (
