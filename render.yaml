@@ -1,7 +1,4 @@
 services:
-  # ============================================
-  # Backend - Node.js Express (Docker)
-  # ============================================
   - type: web
     name: car-booking-backend
     env: docker
@@ -23,6 +20,9 @@ services:
       - key: CLIENT_URL_SHIP
         value: http://localhost:3001
 
+  # ============================================
+  # Custom Frontend (Docker)
+  # ============================================
   - type: web
     name: car-booking-custom
     env: docker
@@ -48,6 +48,9 @@ services:
       - key: VITE_API_URL
         sync: false
 
+  # ============================================
+  # Staff Frontend (Docker)
+  # ============================================
   - type: web
     name: car-booking-staff
     env: docker

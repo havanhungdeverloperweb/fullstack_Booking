@@ -8,7 +8,6 @@ interface SidebarProps {
   staffInfo: any;
   onLogout: () => void;
 }
-
 function SidebarButton({ icon, label, onClick, active }: any) {
   return (
     <button
@@ -24,7 +23,6 @@ function SidebarButton({ icon, label, onClick, active }: any) {
     </button>
   );
 }
-
 export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staffInfo, onLogout }: SidebarProps) {
   const handleHomeClick = () => {
     onClose();
@@ -45,7 +43,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
       `}>
         <div className="flex flex-col h-full">
           <div className="flex gap-2 items-start mb-10">
-            <h2 className="text-2xl font-bold hidden md:flex items-center gap-2">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
                 <nav onClick={handleHomeClick}>
                 <Home size={28} className="text-emerald-500 cursor-pointer hover:text-emerald-400 transition-colors" />
                 </nav>
@@ -54,8 +52,6 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
           </div>
           
           <nav className="space-y-2 flex-1">
-          
-
             <SidebarButton 
               onClick={() => { onTabChange('bookings'); onClose(); }} 
               icon={<Calendar size={20} />} 
@@ -96,15 +92,6 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, onClose, staff
               label="Khách Hàng" 
               active={activeTab === 'customers'} 
             />
-            
-            <div className="md:hidden">
-              <SidebarButton
-                onClick={handleHomeClick}
-                icon={<Home size={20} />}
-                label="Trang Chủ"
-                active={false}
-              />
-            </div>
           </nav>
 
           {staffInfo && (

@@ -62,7 +62,6 @@ export default function MyTrips() {
     setError(null);
     
     try {
-      // Gọi API đúng endpoint
       const response = await fetch(`http://localhost:5000/api/bookings/phone/${phone}`);
       const result = await response.json();
       
@@ -71,7 +70,6 @@ export default function MyTrips() {
         if (result.data.length === 0) {
           setError('Không tìm thấy chuyến đi nào cho số điện thoại này');
         } else {
-          // Fetch review state cho các chuyến hoàn thành
           result.data.forEach((trip: Booking) => {
             if (trip.status === 'completed') {
               dispatch(fetchReviewByBooking(trip._id));

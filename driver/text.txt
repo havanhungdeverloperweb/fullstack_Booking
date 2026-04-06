@@ -3,4 +3,9 @@ docker-compose down
 docker-compose up -d --build
 docker-compose logs backend
 docker-compose logs frontend
+docker-compose config
 ngrok --version || npx localtunnel --version
+docker exec car-booking-backend env
+docker logs --tail 20 car-booking-backend
+docker exec car-booking-custom env
+rm renderyaml

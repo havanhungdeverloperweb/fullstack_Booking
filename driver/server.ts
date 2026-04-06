@@ -1,13 +1,11 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
-import apiRoutes from "./src/routes/api";
 async function startServer() {
   const app = express();
   const PORT = 3000;
   app.use(express.json());
-  app.use("/api", apiRoutes);
-
+  
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -23,7 +21,6 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    // Server started
   });
 }
 
