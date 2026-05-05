@@ -264,33 +264,6 @@ export default function StaffDashboard() {
           </div>
         </header>
 
-        {!isSidebarOpen && (
-          <div className="md:hidden mb-6">
-            <div className="flex flex-wrap gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-100">
-              {menuItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveTab(item.id as any);
-                      setIsSidebarOpen(false);
-                    }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                      activeTab === item.id
-                        ? 'bg-emerald-500 text-white shadow-md'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    <Icon size={18} />
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
         {activeTab === 'bookings' && (
           <BookingsTab
             onViewBooking={setViewingBooking}

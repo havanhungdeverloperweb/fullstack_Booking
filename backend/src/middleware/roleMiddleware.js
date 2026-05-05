@@ -1,4 +1,3 @@
-// middleware/roleMiddleware.js
 const requireStaff = (req, res, next) => {
   if (req.userRole !== 'staff') {
     return res.status(403).json({

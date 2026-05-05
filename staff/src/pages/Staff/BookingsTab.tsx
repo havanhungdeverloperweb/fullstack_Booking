@@ -12,7 +12,7 @@ import {
 } from '../../redux/StaffBooking/StaffBooking.Slice';
 import { fetchAllDrivers } from '../../redux/DriverManagement/DriverManagement.Slice';
 import { fetchAllVehicles } from '../../redux/Vehicle/Vehicle.Slice';
-import { StatusBadge, StatCard } from '../../components/Common';
+import { StatCard } from '../../components/Common';
 import { Booking } from '../../types/Booking.types';
 import { BOOKING_STATUS_OPTIONS, BookingStatus, CarpoolAssignmentOption } from '../../types/StaffBooking.types';
 import { staffBookingApi } from '../../redux/StaffBooking/StaffBooking.Api';
@@ -35,15 +35,13 @@ const extractAssignment = (response: any): any => {
   return response;
 };
 
-export default function BookingsTab({ onViewBooking, onAssignDriver }: BookingsTabProps) {
+export default function BookingsTab({ onViewBooking}: BookingsTabProps) {
   const dispatch = useAppDispatch();
 
-  // Redux state
   const { bookings, stats, loading, error, pagination, filters } = useAppSelector(
     (state) => state.staffBooking
   );
 
-  // Local state
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [cancelReason, setCancelReason] = useState('');
@@ -55,7 +53,6 @@ export default function BookingsTab({ onViewBooking, onAssignDriver }: BookingsT
     search: filters.search || ''
   });
   const [isMobile, setIsMobile] = useState(false);
-
   const [showAssignmentModal, setShowAssignmentModal] = useState(false);
   const [assigningBooking, setAssigningBooking] = useState<Booking | null>(null);
   const [selectedDriverId, setSelectedDriverId] = useState('');
@@ -81,17 +78,14 @@ export default function BookingsTab({ onViewBooking, onAssignDriver }: BookingsT
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Fetch data khi filters thay đổi
   useEffect(() => {
     dispatch(fetchBookings(filters));
   }, [dispatch, filters]);
 
-  // Fetch stats khi component mount
   useEffect(() => {
     dispatch(fetchBookingStats());
   }, [dispatch]);
 
-  // Auto refresh mỗi 30 giây
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(fetchBookings(filters));
@@ -101,7 +95,6 @@ export default function BookingsTab({ onViewBooking, onAssignDriver }: BookingsT
     return () => clearInterval(interval);
   }, [dispatch, filters]);
 
-  // Load tùy chọn phân công (ghép chuyến + tài xế rảnh + xe ready) khi mở modal
   useEffect(() => {
     if (showAssignmentModal && assigningBooking) {
       loadAssignmentOptions(assigningBooking.seats);
