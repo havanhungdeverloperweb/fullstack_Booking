@@ -1,0 +1,9 @@
+Xác thực (Auth & Account API): Driver và Staff có luồng đăng nhập, cập nhật thông tin và đổi mật khẩu thông qua OTP. Mọi dữ liệu về tài khoản lưu ở User.
+Khách hàng đặt xe (Booking API): Customer không cần đăng nhập, tạo booking trực tiếp thông qua Booking.controller.js. Bản ghi lưu tại Booking.
+Nhân viên điều phối (Staff Management API): Staff sử dụng các controller quản lý (staffBooking, StaffCustomer, Vehicle) để theo dõi booking, khách hàng và gán xe/tài xế. Quá trình gán tài xế sẽ tạo ra dữ liệu trên bảng Trip.
+Tài xế thực hiện chuyến (Driver Trip API): Driver nhận chuyến đi, cập nhật các trạng thái (Đã đến điểm đón, Đang chạy, Hoàn thành) liên tục vào Trip thông qua driverTrip.controller.js.
+Thanh toán (Payment & Bank API): Sau khi chuyến đi hoàn thành, Customer hoặc Driver chốt thanh toán. Nếu dùng MoMo, hệ thống gọi API MoMo tạo link và đợi webhook (IPN) báo về để lưu vào Payment.
+Đánh giá (Review API): Khách hàng sử dụng driverReview.controller.js để để lại phản hồi, điểm sao cho tài xế và lưu ở bảng Review.
+Quản trị chung: Nhân viên có toàn quyền kiểm soát Phương tiện (Vehicle), thống kê (Payment) và mọi thông tin người dùng (User).
+
+
