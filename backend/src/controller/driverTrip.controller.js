@@ -393,7 +393,15 @@ class DriverTripController {
           ApiResponse.error('Bạn không phải tài xế được phân công chuyến này')
         );
       }
-      
+
+      // Kiểm tra thanh toán
+      const payment = await Payment.findOne({ booking_id: bookingId }).select('payment_status');
+      if (!payment || payment.payment_status === 'pending') {
+        return res.status(400).json(
+          ApiResponse.error('Khách chưa thanh toán, vui lòng xác nhận thanh toán trước khi hoàn thành chuyến')
+        );
+      }
+
       // Kiểm tra trạng thái
       if (booking.status !== 'in-progress') {
         return res.status(400).json(
@@ -404,9 +412,9 @@ class DriverTripController {
       // Cập nhật
       assignment.end_time = new Date();
       await assignment.save();
-      
-      // Kết thúc di chuyển => chờ thanh toán (theo workflow mới)
-      booking.status = 'awaiting_payment';
+
+      // Kết thúc di chuyển - set thành completed để người dùng có thể đánh giá
+      booking.status = 'completed';
       await booking.save();
       
       // Cập nhật thống kê khách hàng
@@ -443,7 +451,7 @@ class DriverTripController {
           assignmentId: assignment._id,
           status: booking.status,
           status_text: booking.status_text
-        }, 'Kết thúc di chuyển thành công, chuyển sang chờ thanh toán')
+        }, 'Chuyến đi hoàn thành! Khách hàng có thể đánh giá ngay.')
       );
       
     } catch (error) {
